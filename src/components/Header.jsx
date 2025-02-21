@@ -7,8 +7,8 @@ function Header() {
   return (
     <header className='header'>
         <nav className='nav-links'>
-              <Link to="/login">Login</Link>
-              <Link to="/register">Register</Link>
+              {/* <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link> */}
               <Link to="/gallery">Gallery</Link>
               <Link to="/favorites">Favorites</Link>
         </nav>

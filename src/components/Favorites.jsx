@@ -34,18 +34,12 @@ const Favorites = () => {
       };
 
       const handleDeleteFavorite = (photo) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-         // console.log("No token found, please login first.");
-         // return;
-        }
         const imageUrl = photo.url || `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_w.jpg`;
     
         fetch(`http://localhost:3001/api/favorites/`, {
           method: "DELETE",
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({ imageUrl: imageUrl, username: 'mariarodri', title: photo.title }),
         })

@@ -24,19 +24,12 @@ const Gallery = () => {
   };
 
   const handleFavorite = (photo) => {
-    const token = localStorage.getItem("token");
-    console.log(JSON.stringify(photo));
-    if (!token) {
-      //console.log("No token found, please login first.");
-     // return;
-    }
     const imageUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_w.jpg`;
 
     fetch("http://localhost:3001/api/favorites", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({ imageUrl: imageUrl, username: 'mariarodri', title: photo.title }),
     })
