@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom';
+import "../styles/authentication-style.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -36,7 +38,7 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="parent-container">
       <h1>Login</h1>
       {error && <div className="error">{error}</div>}
       <form onSubmit={handleSubmit}>
@@ -48,6 +50,9 @@ const Login = () => {
         
         <button type="submit">Login</button>
       </form>
+      <p>
+        Don't have an account? <Link to="/register">Sign up here</Link>
+      </p>
     </div>
   );
 };

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import "../styles/authentication-style.css";
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -44,8 +46,8 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
-      <h2>Register</h2>
+    <div className="parent-container">
+      <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username</label>
@@ -81,8 +83,7 @@ const Register = () => {
           {loading ? 'Registering...' : 'Register'}
         </button>
       </form>
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      Already have an account? <Link to="/login">Login here</Link>
     </div>
   );
 };

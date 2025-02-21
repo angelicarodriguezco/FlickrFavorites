@@ -5,9 +5,9 @@ import "../styles/list-style.css";
 const Gallery = () => {
   const [photos, setPhotos] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    // Fetch random photos when the component loads
     getPhotos().then((photos) => setPhotos(photos));
   }, []);
 
@@ -18,6 +18,22 @@ const Gallery = () => {
 
   const handleCloseModal = () => {
     setSelectedPhoto(null);
+  };
+
+  const handleFavorite = (photo) => {
+    fetch("http://localhost:3000/api/favorites", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ imageId: photo.id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Image added to favorites:", data);
+        setFavorites((prevFavorites) => [...prevFavorites, photo]);
+      })
+      .catch((error) => console.error("Error:", error));
   };
 
   return (
