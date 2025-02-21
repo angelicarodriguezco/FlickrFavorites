@@ -52,7 +52,7 @@ const Gallery = () => {
             ...prevMessages,
             [photo.id]: "",
           }));
-        }, 5000);
+        }, 3000);
       })
       .catch((error) => console.error("Error:", error));
   };
