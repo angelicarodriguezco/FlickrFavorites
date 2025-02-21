@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import Gallery from './components/Gallery';
+import Favorites from './components/Favorites';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
             <li>
               <Link to="/gallery">Gallery</Link>
             </li>
+            <li>
+              <Link to="/favorites">Favorites</Link>
+            </li>
           </ul>
         </nav>
 
@@ -27,6 +31,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </div>
     </Router>

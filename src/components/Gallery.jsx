@@ -6,6 +6,7 @@ const Gallery = () => {
   const [photos, setPhotos] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [favorites, setFavorites] = useState([]);
+  const [successMessages, setSuccessMessages] = useState("");
 
   useEffect(() => {
     getPhotos().then((photos) => setPhotos(photos));
@@ -41,6 +42,17 @@ const Gallery = () => {
       .then((data) => {
         console.log("Image added to favorites:", data);
         setFavorites((prevFavorites) => [...prevFavorites, photo]);
+        setSuccessMessages((prevMessages) => ({
+          ...prevMessages,
+          [photo.id]: "Added to favorites!",
+        }));
+
+        setTimeout(() => {
+          setSuccessMessages((prevMessages) => ({
+            ...prevMessages,
+            [photo.id]: "",
+          }));
+        }, 5000);
       })
       .catch((error) => console.error("Error:", error));
   };
@@ -61,6 +73,9 @@ const Gallery = () => {
                   onClick={() => handleImageClick(photo)}
                 />
                 <button onClick={() => handleFavorite(photo)}>Add to Favorites</button>
+                {successMessages[photo.id] && (
+                    <span className="success-message">{successMessages[photo.id]}</span>
+                  )}
               </div>
             );
           })
