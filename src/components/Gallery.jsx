@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Button } from '@mui/material';
 import { getPhotos } from "../services/flickrService";
 import "../styles/list-style.css";
 
@@ -65,14 +67,17 @@ const Gallery = () => {
           photos.map((photo) => {
             const imgUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_w.jpg`;
             return (
-              <div key={photo.id}>
+              <div key={photo.id} className="image-div">
                 <img
                   src={imgUrl}
                   alt={photo.title}
                   className="image-item"
                   onClick={() => handleImageClick(photo)}
                 />
-                <button onClick={() => handleFavorite(photo)}>Add to Favorites</button>
+                <Button onClick={() => handleFavorite(photo)}
+                  variant='contained'
+                  color='secondary'
+                  startIcon={<FavoriteIcon></FavoriteIcon>}></Button>
                 {successMessages[photo.id] && (
                     <span className="success-message">{successMessages[photo.id]}</span>
                   )}
