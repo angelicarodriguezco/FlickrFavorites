@@ -104,3 +104,111 @@ h1 {
   border: 1px solid #c3e6cb;
   border-radius: 5px;
 }
+
+
+.image-item-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 15px;
+  text-align: center;
+}
+
+
+button.save-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.2s;
+  width: 100%;
+  max-width: 200px;
+}
+
+button.save-button:hover {
+  background-color: #388E3C;
+  transform: scale(1.05);
+}
+
+button.save-button:active {
+  transform: scale(1);
+}
+
+button.save-button:focus {
+  outline: none;
+}
+
+
+button.edit-button {
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.2s;
+  width: 100%;
+  max-width: 200px;
+}
+
+button.edit-button:hover {
+  background-color: #007B9F;
+  transform: scale(1.05);
+}
+
+button.edit-button:active {
+  transform: scale(1);
+}
+
+button.edit-button:focus {
+  outline: none;
+}
+
+
+button.delete-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.2s;
+  width: 100%;
+  max-width: 200px;
+}
+
+button.delete-button:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
+}
+
+button.delete-button:active {
+  transform: scale(1);
+}
+
+button.delete-button:focus {
+  outline: none;
+}
+
+
+button:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+
+.error {
+  color: #f44336;
+  font-size: 16px;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+}

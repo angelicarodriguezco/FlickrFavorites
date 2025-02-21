@@ -5,6 +5,8 @@ const Favorites = () => {
     const [favorites, setFavorites] = useState([]);
     const [error, setError] = useState("");
     const [selectedPhoto, setSelectedPhoto] = useState(null);
+    const [editingTitle, setEditingTitle] = useState(null);
+    const [newTitle, setNewTitle] = useState("");
   
     useEffect(() => {
       fetch("http://localhost:3001/api/favorites/mariarodri")
@@ -50,38 +52,79 @@ const Favorites = () => {
           .then((response) => response.json())
           .then((data) => {
             console.log("Image removed from favorites:", data);
-            setFavorites(favorites.filter(fav => fav.id !== photo.id));
+            setFavorites(favorites.filter(fav => fav.url !== photo.url));
           })
           .catch((error) => console.error("Error:", error));
       };
-  
+
+      const handleEditTitle = (photo) => {
+        setEditingTitle(photo.url); 
+        setNewTitle(photo.title); 
+      };
+    
+      const handleSaveTitle = (photo) => {
+        const token = localStorage.getItem("token");
+    
+        fetch(`http://localhost:3001/api/favorites/`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ imageUrl: photo.url, newTitle, username: 'mariarodri' }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Title updated:", data);
+            setFavorites(favorites.map((fav) => fav.url === photo.url ? { ...fav, title: newTitle } : fav));
+            setEditingTitle(null);
+          })
+          .catch((error) => console.error("Error:", error));
+      };
+
+
     return (
         <div className="favorites">
-        <h1>Favorites</h1>
-        {error && <div className="error" key={error}>{error}</div>}
-        <div className="image-list">
-          {favorites.length > 0 ? (
-            favorites.map((photo, index) => {
-              return (
-                <div key={index} className="image-item-wrapper">
-                  <img
-                    src={photo.url}
-                    alt={photo.title}
-                    className="image-item"
-                    onClick={() => handleImageClick(photo)}
+      <h1>Favorites</h1>
+      {error && <div className="error" key={error}>{error}</div>}
+      <div className="image-list">
+        {favorites.length > 0 ? (
+          favorites.map((photo, index) => (
+            <div key={index} className="image-item-wrapper">
+              <img
+                src={photo.url}
+                alt={photo.title}
+                className="image-item"
+                onClick={() => handleImageClick(photo)}
+              />
+              <div>
+                {editingTitle === photo.url ? (
+                  <input
+                    type="text"
+                    value={newTitle}
+                    onChange={(e) => setNewTitle(e.target.value)}
                   />
-                  <div>{photo.title}</div>
-                  <button onClick={() => handleDeleteFavorite(photo)}>
-                    Delete from Favorites
-                  </button>
-                </div>
-              );
-            })
-          ) : (
-            <p>No favorite images yet.</p>
-          )}
-        </div>
-        {selectedPhoto && (
+                ) : (
+                  <span>{photo.title}</span>
+                )}
+              </div>
+              <div>
+                {editingTitle === photo.url ? (
+                  <button class= "save-button" onClick={() => handleSaveTitle(photo)}>Save</button>
+                ) : (
+                  <button class= "edit-button" onClick={() => handleEditTitle(photo)}>Edit Title</button>
+                )}
+                <button class= "delete-button" onClick={() => handleDeleteFavorite(photo)}>
+                  Delete from Favorites
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No favorite images yet.</p>
+        )}
+      </div>
+      {selectedPhoto && (
         <div className="modal" style={{ display: "block" }} onClick={handleCloseModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <span className="close-btn" onClick={handleCloseModal}>
@@ -91,8 +134,8 @@ const Favorites = () => {
           </div>
         </div>
       )}
-      </div>
-    );
-  };
+    </div>
+  );
+}
   
   export default Favorites;
