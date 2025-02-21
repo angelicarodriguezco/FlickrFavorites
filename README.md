@@ -2,18 +2,18 @@ Frontend - Flickr Favorites App
 This is the frontend for the Flickr Favorites App, built using React. It allows users to search for images using the Flickr API, mark images as favorites, and manage their favorite images.
 
 Features:
-Search Images: Fetch images from the Flickr API.
-Favorite Management: Users can mark/unmark images as favorites.
-View Favorites: Display favorite images and edit their title.
+-Search Images: Fetch images from the Flickr API.
+-Favorite Management: Users can mark/unmark images as favorites.
+-View Favorites: Display favorite images and edit their title.
 
 Technologies Used:
-React (for building the UI)
-React Router (for navigation)
-Axios (for API requests)
-CSS (for styling)
+-React (for building the UI)
+-React Router (for navigation)
+-Axios (for API requests)
+-CSS (for styling)
 
 Installation and Setup
-Prerequisites:
+*Prerequisites:
 Node.js and npm installed
 
 Steps:
