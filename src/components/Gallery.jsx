@@ -21,10 +21,18 @@ const Gallery = () => {
   };
 
   const handleFavorite = (photo) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.log("No token found, please login first.");
+      return;
+    }
+
     fetch("http://localhost:3000/api/favorites", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ imageId: photo.id }),
     })
@@ -44,13 +52,15 @@ const Gallery = () => {
           photos.map((photo) => {
             const imgUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_w.jpg`;
             return (
-              <img
-                key={photo.id}
-                src={imgUrl}
-                alt={photo.title}
-                className="image-item"
-                onClick={() => handleImageClick(photo)}
-              />
+              <div key={photo.id}>
+                <img
+                  src={imgUrl}
+                  alt={photo.title}
+                  className="image-item"
+                  onClick={() => handleImageClick(photo)}
+                />
+                <button onClick={() => handleFavorite(photo)}>Add to Favorites</button>
+              </div>
             );
           })
         ) : (
