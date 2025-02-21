@@ -2,11 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #fefae0;
   padding: 20px;
   display: flex;
   justify-content: center;
@@ -132,8 +133,8 @@ h1 {
 }
 
 button.save-button {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #ccd5ae;
+  color: black;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
@@ -146,7 +147,7 @@ button.save-button {
 }
 
 button.save-button:hover {
-  background-color: #388E3C;
+  background-color: #b5c49d;
   transform: scale(1.05);
 }
 
@@ -160,8 +161,8 @@ button.save-button:focus {
 
 
 button.edit-button {
-  background-color: #008CBA;
-  color: white;
+  background-color: #b2ba99;
+  color: black;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
@@ -174,7 +175,7 @@ button.edit-button {
 }
 
 button.edit-button:hover {
-  background-color: #007B9F;
+  background-color: #99a082;
   transform: scale(1.05);
 }
 
@@ -188,7 +189,7 @@ button.edit-button:focus {
 
 
 button.delete-button {
-  background-color: #f44336;
+  background-color: #fd7f63;
   color: white;
   border: none;
   border-radius: 5px;
@@ -202,7 +203,7 @@ button.delete-button {
 }
 
 button.delete-button:hover {
-  background-color: #d32f2f;
+  background-color: #fd582f;
   transform: scale(1.05);
 }
 

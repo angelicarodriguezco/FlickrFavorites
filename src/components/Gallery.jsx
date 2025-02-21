@@ -76,8 +76,8 @@ const Gallery = () => {
                 />
                 <Button onClick={() => handleFavorite(photo)}
                   variant='contained'
-                  color='secondary'
-                  startIcon={<FavoriteIcon></FavoriteIcon>}></Button>
+                  sx={{ backgroundColor: '#ccd5ae', '&:hover': { backgroundColor: '#b5c49d' } }}
+                  startIcon={<FavoriteIcon sx={{ color: '#9da97f' }}></FavoriteIcon>}></Button>
                 {successMessages[photo.id] && (
                     <span className="success-message">{successMessages[photo.id]}</span>
                   )}
