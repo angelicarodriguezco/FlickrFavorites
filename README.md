@@ -17,6 +17,7 @@ Installation and Setup
 Node.js and npm installed
 
 Steps:
-1. In a Terminal navigate to the Demo directory using this line: cd Demo.
-2. Install Dependencies using this line: npm install.
-3. Start the frontend server using this line: npm start
+1. Clone the repository using this link: https://github.com/mariaangelicaro/FlickrFavoritesAppUI.git
+2. In a Terminal navigate to the Demo directory using this line: cd FlickrFavoritesAppUI.
+3. Install Dependencies using this line: npm install.
+4. Start the frontend server using this line: npm start
