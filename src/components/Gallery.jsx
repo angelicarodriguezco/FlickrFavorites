@@ -11,7 +11,7 @@ const Gallery = () => {
   const [successMessages, setSuccessMessages] = useState("");
 
   useEffect(() => {
-    getPhotos().then((photos) => setPhotos(photos));
+    getPhotos('mountains').then((photos) => setPhotos(photos));
   }, []);
 
   const handleImageClick = (photo) => {
