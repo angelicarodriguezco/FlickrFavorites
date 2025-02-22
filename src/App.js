@@ -6,6 +6,8 @@ import Register from './components/Register';
 import Gallery from './components/Gallery';
 import Favorites from './components/Favorites';
 import Header from './components/Header'
+import Disclaimer from './components/Disclaimer';
+
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
       <div>
         <Header />
         <Routes>
+          <Route path='/' element={< Disclaimer />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/gallery" element={<Gallery />} />
