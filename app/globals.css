@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './styles/modern-theme.css';
+@import './styles/header-style.css';
+@import './styles/list-style.css';
+@import './styles/authentication-style.css';
+
+html {
+  scroll-behavior: smooth;
+}
