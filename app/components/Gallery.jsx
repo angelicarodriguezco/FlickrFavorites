@@ -1,9 +1,11 @@
 'use client'
 
 import { useState, useEffect } from "react"
+import { useAuth } from "../contexts/AuthContext"
 import { getPhotos } from "../services/flickrService"
 
 const Gallery = () => {
+  const { user, isAuthenticated } = useAuth()
   const [photos, setPhotos] = useState([])
   const [selectedPhoto, setSelectedPhoto] = useState(null)
   const [favorites, setFavorites] = useState([])
@@ -53,6 +55,11 @@ const Gallery = () => {
   }
 
   const handleFavorite = (photo) => {
+    if (!isAuthenticated) {
+      alert('Please log in to add favorites')
+      return
+    }
+
     const imageUrl = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_w.jpg`
 
     fetch("/api/favorites", {
@@ -60,7 +67,11 @@ const Gallery = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ imageUrl: imageUrl, username: "mariarodri", title: photo.title }),
+      body: JSON.stringify({ 
+        imageUrl: imageUrl, 
+        userId: user._id, 
+        title: photo.title 
+      }),
     })
       .then((response) => response.json())
       .then((data) => {

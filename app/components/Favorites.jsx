@@ -1,8 +1,10 @@
 'use client'
 
 import { useState, useEffect } from "react"
+import { useAuth } from "../contexts/AuthContext"
 
 const Favorites = () => {
+  const { user, isAuthenticated } = useAuth()
   const [favorites, setFavorites] = useState([])
   const [error, setError] = useState("")
   const [selectedPhoto, setSelectedPhoto] = useState(null)
@@ -11,7 +13,12 @@ const Favorites = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch("/api/favorites?username=mariarodri")
+    if (!isAuthenticated || !user) {
+      setLoading(false)
+      return
+    }
+
+    fetch(`/api/favorites?userId=${user._id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched data:", data)
@@ -26,7 +33,7 @@ const Favorites = () => {
         setError("An error occurred: " + err.message)
         setLoading(false)
       })
-  }, [])
+  }, [isAuthenticated, user])
 
   const handleImageClick = (photo) => {
     setSelectedPhoto(photo)
@@ -44,7 +51,7 @@ const Favorites = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ imageUrl: imageUrl, username: "mariarodri", title: photo.title }),
+      body: JSON.stringify({ imageUrl: imageUrl, userId: user._id, title: photo.title }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -65,7 +72,7 @@ const Favorites = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ imageUrl: photo.url, newTitle, username: "mariarodri" }),
+      body: JSON.stringify({ imageUrl: photo.url, newTitle, userId: user._id }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -74,6 +81,22 @@ const Favorites = () => {
         setEditingTitle(null)
       })
       .catch((error) => console.error("Error:", error))
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="favorites">
+        <div className="page-header">
+          <h1 className="page-title">My Favorites</h1>
+          <p className="page-subtitle">Please log in to view your favorites</p>
+        </div>
+        <div className="empty-state">
+          <div className="empty-icon">🔒</div>
+          <h3 className="empty-title">Authentication Required</h3>
+          <p className="empty-description">You need to be logged in to view your favorites</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -91,7 +114,7 @@ const Favorites = () => {
           <p className="loading-text">Loading favorites...</p>
         </div>
       ) : (
-        <div className="image-list">
+        <div className={`image-list ${favorites.length === 0 ? 'empty' : ''}`}>
           {favorites.length > 0 ? (
             favorites.map((photo, index) => (
               <div key={index} className="image-card">

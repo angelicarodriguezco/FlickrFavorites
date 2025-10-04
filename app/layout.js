@@ -1,4 +1,6 @@
 import './globals.css'
+import { AuthProvider } from './contexts/AuthContext'
+import ConditionalHeader from './components/ConditionalHeader'
 
 export const metadata = {
   title: 'FlickrFavorites',
@@ -9,7 +11,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <body>
-        {children}
+        <AuthProvider>
+          <ConditionalHeader />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   )

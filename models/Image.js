@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const ImageSchema = new mongoose.Schema({
   url: { type: String, required: true },
-  username: { type: String, ref: 'User', required: true },
-  title: {type: String}
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  title: { type: String, default: 'Untitled' },
 });
 
 

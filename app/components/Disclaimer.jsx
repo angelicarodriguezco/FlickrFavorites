@@ -2,12 +2,7 @@ import Link from 'next/link'
 
 const Disclaimer = () => {
   return (
-    <div className="gallery">
-      <div className="page-header">
-        <h1 className="page-title">Welcome to FlickrFavorites</h1>
-        <p className="page-subtitle">Browse and save your favorite Flickr images</p>
-      </div>
-
+    <div className="disclaimer-container">
       <div
         style={{
           maxWidth: "800px",

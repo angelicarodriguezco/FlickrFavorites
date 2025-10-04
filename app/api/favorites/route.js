@@ -2,18 +2,18 @@ import { NextResponse } from 'next/server'
 import connectDB from '../../../db'
 import Image from '../../../models/Image'
 
-export async function GET(request, { params }) {
+export async function GET(request) {
   try {
     await connectDB()
     
     const { searchParams } = new URL(request.url)
-    const username = searchParams.get('username') || params?.username
+    const userId = searchParams.get('userId')
     
-    if (!username) {
-      return NextResponse.json({ error: 'Username is required' }, { status: 400 })
+    if (!userId) {
+      return NextResponse.json({ error: 'User ID is required' }, { status: 400 })
     }
 
-    const favorites = await Image.find({ username })
+    const favorites = await Image.find({ userId }).populate('userId', 'username email')
     return NextResponse.json(favorites)
   } catch (error) {
     console.error('Error fetching favorites:', error)
@@ -25,20 +25,20 @@ export async function POST(request) {
   try {
     await connectDB()
     
-    const { imageUrl, username, title } = await request.json()
+    const { imageUrl, userId, title } = await request.json()
     
-    if (!imageUrl || !username) {
-      return NextResponse.json({ error: 'Image URL and username are required' }, { status: 400 })
+    if (!imageUrl || !userId) {
+      return NextResponse.json({ error: 'Image URL and user ID are required' }, { status: 400 })
     }
 
-    const existingImage = await Image.findOne({ url: imageUrl, username })
+    const existingImage = await Image.findOne({ url: imageUrl, userId })
     if (existingImage) {
       return NextResponse.json({ error: 'Image already in favorites' }, { status: 409 })
     }
 
     const newImage = new Image({
       url: imageUrl,
-      username,
+      userId,
       title: title || 'Untitled'
     })
 
@@ -54,14 +54,14 @@ export async function PUT(request) {
   try {
     await connectDB()
     
-    const { imageUrl, username, newTitle } = await request.json()
+    const { imageUrl, userId, newTitle } = await request.json()
     
-    if (!imageUrl || !username || !newTitle) {
-      return NextResponse.json({ error: 'Image URL, username, and new title are required' }, { status: 400 })
+    if (!imageUrl || !userId || !newTitle) {
+      return NextResponse.json({ error: 'Image URL, user ID, and new title are required' }, { status: 400 })
     }
 
     const updatedImage = await Image.findOneAndUpdate(
-      { url: imageUrl, username },
+      { url: imageUrl, userId },
       { title: newTitle },
       { new: true }
     )
@@ -81,13 +81,13 @@ export async function DELETE(request) {
   try {
     await connectDB()
     
-    const { imageUrl, username } = await request.json()
+    const { imageUrl, userId } = await request.json()
     
-    if (!imageUrl || !username) {
-      return NextResponse.json({ error: 'Image URL and username are required' }, { status: 400 })
+    if (!imageUrl || !userId) {
+      return NextResponse.json({ error: 'Image URL and user ID are required' }, { status: 400 })
     }
 
-    const deletedImage = await Image.findOneAndDelete({ url: imageUrl, username })
+    const deletedImage = await Image.findOneAndDelete({ url: imageUrl, userId })
 
     if (!deletedImage) {
       return NextResponse.json({ error: 'Image not found' }, { status: 404 })

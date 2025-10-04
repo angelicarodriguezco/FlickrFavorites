@@ -106,6 +106,14 @@
   margin-bottom: 3rem;
 }
 
+/* When empty state is shown, center the content */
+.image-list.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
 .image-card {
   background: var(--bg-card);
   border-radius: 16px;
